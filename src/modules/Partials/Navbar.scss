@@ -1,0 +1,18 @@
+@import "../../common/_Variables.scss";
+
+.navbar {
+  background-color: #fff;
+  font-weight: 600;
+
+  .dropdown-toggle::after {
+    display: none;
+  }
+  .category-dropndown {
+    .dropdown-menu {
+      .dropdown-item:active {
+        background-color: $base-color;
+        color: #fff !important;
+      }
+    }
+  }
+}

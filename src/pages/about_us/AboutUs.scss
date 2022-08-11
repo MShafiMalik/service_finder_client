@@ -1,0 +1,40 @@
+@import "../../common/_Variables.scss";
+
+.about-us {
+  .outer-wrapper {
+    padding: 70px 0;
+  }
+  .inner-wrapper {
+    width: 75%;
+  }
+  h5.heading {
+    color: $base-color;
+  }
+  ul {
+    list-style: none;
+  }
+  .icon {
+    color: $base-color;
+    width: 25px;
+  }
+  .aobutImg {
+    width: 100%;
+  }
+  .features {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+  }
+  .features-tag {
+    text-decoration: none;
+    color: #2c3038;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  .features-icon {
+    color: $base-color;
+    font-size: 18px;
+    font-weight: 700;
+  }
+}

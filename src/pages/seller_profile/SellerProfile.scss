@@ -1,0 +1,51 @@
+@import "../../common/_Variables.scss";
+.container-fluid {
+  .row {
+    .col-md-4 {
+      .profile-card {
+        .profile-img {
+          width: 150px;
+          height: 150px;
+          border: 0.6px solid lightgrey;
+        }
+        .ratingstars {
+          ul {
+            list-style: none;
+            li {
+              display: inline;
+            }
+          }
+        }
+        .card-footer {
+          border-top: 1px solid #dadbdd;
+        }
+      }
+      .description {
+        border: 1px solid #dadbdd;
+        .card-body {
+          h3 {
+            font-size: 16px;
+            line-height: 140%;
+            padding-bottom: 16px;
+          }
+          p {
+            color: $text-color;
+          }
+        }
+      }
+    }
+    .seller-reviews {
+      .ratingstars {
+        ul {
+          list-style: none;
+          li {
+            display: inline;
+            .reviewcolor {
+              color: $text-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

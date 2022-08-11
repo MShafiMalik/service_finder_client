@@ -1,0 +1,18 @@
+.pac-container {
+    background-color: #fff;
+    border-radius: 5px;
+    margin-top: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+}
+.pac-item {
+    border: none;
+    padding: 2px 12px;
+}
+.pac-item-query {
+    color: #000;
+}
+
+.pac-container:after {
+    background-image: none !important;
+    height: 0px;
+}

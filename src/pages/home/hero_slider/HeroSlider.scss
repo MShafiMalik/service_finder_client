@@ -1,0 +1,23 @@
+@import "../../../common/Variables";
+
+.carousel-indicators {
+  button {
+    background-color: $base-color !important;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50%;
+  }
+}
+
+.carousel-caption {
+  max-width: 400px !important;
+  margin: auto;
+  bottom: unset;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slider-btn {
+  padding: 0.7rem 1.5rem !important;
+  border-radius: 25px !important;
+}
