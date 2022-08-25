@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ROUTE_NAMES } from "../../../common/constants";
 
 const CategoryCard = (props) => {
   return (
@@ -7,7 +8,10 @@ const CategoryCard = (props) => {
       <div className="card-body">
         <h4 className="card-title text-center">{props.title}</h4>
         <div className="d-grid">
-          <Link to={`/category/${props.id}`} className="btn theme-btn">
+          <Link
+            to={`${ROUTE_NAMES.CATEGORY}/${props.id}`}
+            className="btn theme-btn"
+          >
             View
           </Link>
         </div>

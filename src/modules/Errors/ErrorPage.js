@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ROUTE_NAMES } from "../../common/constants";
 
 const ErrorPage = () => {
   return (
@@ -8,7 +9,7 @@ const ErrorPage = () => {
       <h2 className="text-center">SORRY!</h2>
       <h3 className="font-weight-light text-center">Page Not Found.</h3>
       <div className="text-center mt-4">
-        <Link className="font-weight-medium" to="/">
+        <Link className="font-weight-medium" to={ROUTE_NAMES.HOME}>
           Back to home
         </Link>
       </div>

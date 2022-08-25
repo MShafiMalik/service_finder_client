@@ -1,0 +1,15 @@
+@import "../../common/_Variables.scss";
+
+.seller-service-card {
+  .card-title {
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  .carousel-indicators {
+    button {
+      width: 10px !important;
+      height: 10px !important;
+    }
+  }
+}

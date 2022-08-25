@@ -21,3 +21,30 @@
   padding: 0.7rem 1.5rem !important;
   border-radius: 25px !important;
 }
+.nav-link,
+.nav-link:hover {
+  color: $text-color;
+}
+.nav-link.active {
+  color: $base-color !important;
+}
+
+.package-price {
+  background-color: $base-color;
+  margin: 0;
+  color: #fff;
+  padding: 8px;
+}
+
+.left-packages {
+  display: none;
+}
+
+@media only screen and (max-width: 991px) {
+  .left-packages {
+    display: block;
+  }
+  .right-packages {
+    display: none;
+  }
+}

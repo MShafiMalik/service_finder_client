@@ -20,8 +20,20 @@ body {
 .app-link {
   color: $text-color !important;
   transition: all 0.3s;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
   &:hover {
     color: $base-color !important;
+  }
+}
+
+.app-link-reverse {
+  color: $base-color !important;
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    color: $text-color !important;
   }
 }
 
@@ -67,6 +79,7 @@ body {
     color: $base-color !important;
   }
   &:focus {
+    color: #fff !important;
     box-shadow: none !important;
     background-color: $base-color !important;
     border-color: $base-color !important;
@@ -90,4 +103,15 @@ body {
     background-color: $base-color !important;
     border-color: $base-color !important;
   }
+}
+
+.full-width-btn {
+  width: 100%;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid lightgrey;
 }

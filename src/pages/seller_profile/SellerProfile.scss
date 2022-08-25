@@ -34,18 +34,5 @@
         }
       }
     }
-    .seller-reviews {
-      .ratingstars {
-        ul {
-          list-style: none;
-          li {
-            display: inline;
-            .reviewcolor {
-              color: $text-color;
-            }
-          }
-        }
-      }
-    }
   }
 }

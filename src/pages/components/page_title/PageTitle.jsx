@@ -6,7 +6,7 @@ const PageTitle = (props) => {
       <h1 className="title">{props.title}</h1>
       <div className="overlay"></div>
       <img
-        src="../assets/images/home_slider/bg1.jpg"
+        src="https://res.cloudinary.com/dcwobtmhv/image/upload/v1661413222/bg1_fm8fzh.jpg"
         alt="Page Title"
         width="100%"
       />

@@ -1,191 +1,174 @@
 import "./SellerProfile.scss";
-import ServiceCard from "../components/service_card/ServiceCard";
 import SellerReviews from "../components/seller_reviews/SellerReviews";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { SERVER_BASE_URL } from "../../common/constants";
+import { useParams } from "react-router-dom";
+import SellerServiceCard from "./SellerServiceCard";
+import ReviewCardsContainer from "../components/review_cards_container/ReviewCardsContainer";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const seller_data = {
-  id: 1,
-  image: "assets/images/avatar/avatar-1.png",
-  name: "john smith",
-  rating: "5",
-  review: "519",
-  location: "Multan,Pakistan",
-  description:
-    "I'm a full time freelance web developer with extensive experience in building high quality websites. I also offer SEO services. I have built many professional websites and make them shine on internet with my SEO skills. Contact now to get your dream website designed and featured.",
-  services: [
-    {
-      id: 1,
-      seller: {
-        name: "Provider Name",
-        image: "assets/images/avatar/avatar-1.png",
-        rating: 4.9,
-        review_count: 23,
-      },
-      title: "I will do responsive squarespace website design or squarespace",
-      price: 300,
-      images: [
-        "assets/images/services/image1.jfif",
-        "assets/images/services/image2.jfif",
-      ],
-    },
-    {
-      id: 2,
-      seller: {
-        name: "Provider Name",
-        image: "assets/images/avatar/avatar-1.png",
-        rating: 4.9,
-        review_count: 23,
-      },
-      title: "I will do responsive squarespace website design or squarespace",
-      price: 300,
-      images: [
-        "assets/images/services/image1.jfif",
-        "assets/images/services/image2.jfif",
-      ],
-    },
-    {
-      id: 3,
-      seller: {
-        name: "Provider Name",
-        image: "assets/images/avatar/avatar-1.png",
-        rating: 4.9,
-        review_count: 23,
-      },
-      title: "I will do responsive squarespace website design or squarespace",
-      price: 300,
-      images: [
-        "assets/images/services/image1.jfif",
-        "assets/images/services/image2.jfif",
-      ],
-    },
-    {
-      id: 4,
-      seller: {
-        name: "Provider Name",
-        image: "assets/images/avatar/avatar-1.png",
-        rating: 4.9,
-        review_count: 23,
-      },
-      title: "I will do responsive squarespace website design or squarespace",
-      price: 300,
-      images: [
-        "assets/images/services/image1.jfif",
-        "assets/images/services/image2.jfif",
-      ],
-    },
-  ],
-};
+import Modal from "react-bootstrap/Modal";
 
-const services = seller_data.services;
 const SellerProfile = () => {
+  const isAuth = useSelector((state) => state.isAuth);
+  const [message, setMessage] = useState("");
+  const [messageValidationErrors, setMessageValidationErrors] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const handleModalClose = () => setShowModal(false);
+  const handleModalShow = () => setShowModal(true);
+
+  const [seller, setSeller] = useState({});
+  const [reviews, setReviews] = useState([]);
+  const [services, setServices] = useState([]);
+
+  const { seller_user_id } = useParams();
+
+  useEffect(() => {
+    const body = { user_id: seller_user_id };
+    axios.post(SERVER_BASE_URL + "api/seller", body).then((response) => {
+      if (response.status === 200) {
+        setSeller(response.data.data);
+        setReviews(response.data.data.reviews);
+        setServices(response.data.data.services);
+      }
+    });
+  }, [seller_user_id]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!message) {
+      setMessageValidationErrors(true);
+      return false;
+    }
+    if (isAuth === true) {
+      const body = {
+        receiver_user_id: seller._id,
+        message_text: message,
+      };
+      axios
+        .post(`${SERVER_BASE_URL}api/message/send`, body, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success("Message Sent Successfully!", {
+              autoClose: 2000,
+            });
+            setShowModal(false);
+            setMessage("");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err, {
+            autoClose: 2000,
+          });
+        });
+    } else {
+      toast.error("Please Login Before Send Message!", {
+        autoClose: 2000,
+      });
+    }
+  };
+
   return (
     <>
-      <div className="container-fluid">
-        <div className="row px-5 ">
-          <div className="col-md-4 p-0">
-            <div className="card  mt-5 profile-card d-flex align-items-center">
+      <div className="container-fluid my-5">
+        <div className="row px-4">
+          <div className="col-md-4 mb-5">
+            <div className="card profile-card d-flex align-items-center">
               <img
-                src={seller_data.image}
+                src={seller.image}
                 className="profile-img mt-5 rounded-circle"
                 alt="..."
               />
               <div className="card-body">
                 <h5 className="card-title text-center fw-bold">
-                  {seller_data.name}
+                  {seller.firstname + " " + seller.lastname}
                 </h5>
                 <div className="ratingstars">
                   <ul>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color "></i>
-                    </li>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color"></i>
-                    </li>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color"></i>
-                    </li>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color"></i>
-                    </li>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color"></i>
-                    </li>
-                    <li>
-                      <span className="fw-bold rating-color">
-                        {seller_data.rating}
-                      </span>
-                    </li>
-                    <li>
-                      <span className="fw-bold rating-color reviewcolor">{`(${seller_data.review} reviews)`}</span>
-                    </li>
+                    <SellerReviews reviews={reviews} />
                   </ul>
                 </div>
                 <div className="contactbutton d-flex justify-content-center">
-                  <button className="btn theme-btn col-10">Contact Me</button>
+                  <button className="btn theme-btn" onClick={handleModalShow}>
+                    Message
+                  </button>
                 </div>
               </div>
               <div className="card-footer col-10 bg-transparent">
-                <ul className="p-0">
-                  <li>
-                    <i className="fa-solid fa-location-dot"></i>
-                    <b className="ms-2">from</b>
-                    <b className=" float-end">{seller_data.location}</b>
-                  </li>
-                </ul>
+                <p className="ms-2">
+                  <b className="me-2">From:</b>
+                  {seller.city}, {seller.state}, {seller.country}
+                </p>
               </div>
             </div>
-            <div className="card description mt-5 d-flex align-items-center">
+            <h5 className="mb-0 mt-5 mb-2">Description</h5>
+            <div className="card">
               <div className="card-body">
-                <h3 className="card-title mb-0 mt-4 fw-bold">Description</h3>
-                <p className="card-text fw-bold">{seller_data.description}</p>
+                <p className="card-text">{seller.description}</p>
               </div>
             </div>
           </div>
-          {/* profile cards ends here */}
-          <div className="col-md-8 ">
-            <div className="row ms-2">
-              <h2 className="mt-5 mb-3">{seller_data.name}'s Services</h2>
+          <div className="col-md-8">
+            <h2 className="mb-3">{seller.firstname}'s Services</h2>
+            <div className="row">
               {services.map((service, i) => {
                 return (
-                  <div className="col-lg-4 col-md-6 mb-5" key={i}>
-                    {/* <ServiceCard service={service} /> */}
+                  <div className="col-lg-4 col-sm-6 mb-4" key={i}>
+                    <SellerServiceCard service={service} />
                   </div>
                 );
               })}
-              <div className="seller-reviews mb-4">
-                <h2 className="fw-bold">Reviews as seller</h2>
-                <div className="ratingstars">
-                  <ul>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color "></i>
-                    </li>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color"></i>
-                    </li>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color"></i>
-                    </li>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color"></i>
-                    </li>
-                    <li className="me-1">
-                      <i className="fa fa-star rating-color"></i>
-                    </li>
-                    <li>
-                      <span className="fw-bold rating-color">
-                        {seller_data.rating}
-                      </span>
-                    </li>
-                    <li>
-                      <span className="fw-bold rating-color reviewcolor">{`(${seller_data.review} reviews)`}</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <SellerReviews />
+            </div>
+            <div className="my-4">
+              <ReviewCardsContainer reviews={reviews} />
             </div>
           </div>
         </div>
       </div>
+
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <h5 className="text-center mb-3">
+            Message to {seller.firstname} {seller.lastname}
+          </h5>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <textarea
+                className="form-control rounded-2"
+                rows="4"
+                placeholder="Type your message..."
+                autoFocus
+                onChange={(event) => {
+                  setMessageValidationErrors(false);
+                  setMessage(event.target.value);
+                }}
+                value={message}
+              ></textarea>
+              {messageValidationErrors === true ? (
+                <label className="text-danger mt-1">
+                  Message is mendatory!
+                </label>
+              ) : (
+                ""
+              )}
+              <button type="submit" className="btn theme-btn mt-3 float-end">
+                SEND
+              </button>
+            </div>
+          </form>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

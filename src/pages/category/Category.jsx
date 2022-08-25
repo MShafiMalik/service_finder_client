@@ -14,8 +14,10 @@ const Category = () => {
     axios
       .post(SERVER_BASE_URL + "api/service/single-category", body)
       .then((response) => {
-        setCategory(response.data.data.category);
-        setServices(response.data.data.services);
+        if (response.status === 200) {
+          setCategory(response.data.data.category);
+          setServices(response.data.data.services);
+        }
       });
   }, [category_id]);
 

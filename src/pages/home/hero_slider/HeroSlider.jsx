@@ -1,40 +1,21 @@
 import "./HeroSlider.scss";
-
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { ROUTE_NAMES, SERVER_BASE_URL } from "../../../common/constants";
 
 const HeroSlider = () => {
-  const slider_data = [
-    {
-      id: 1,
-      title: "Home Maintenance and Services for you",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione velit deleniti illo",
-      image: "assets/images/home_slider/bg1.jpg",
-    },
-    {
-      id: 2,
-      title: "We are Professional and provide repair Services",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione velit deleniti illo",
-      image: "assets/images/home_slider/bg2.jpg",
-    },
-    {
-      id: 3,
-      title: "The Best company to provide home Services",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione velit deleniti illo",
-      image: "assets/images/home_slider/bg3.jpg",
-    },
-    {
-      id: 4,
-      title: "The Most targetted cleaning services",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione velit deleniti illo",
-      image: "assets/images/home_slider/bg4.jpg",
-    },
-  ];
+  const [slides, setSlides] = useState([]);
 
-  const carousel_indicators = slider_data.map((_item, i) => {
+  useEffect(() => {
+    axios.get(SERVER_BASE_URL + "api/hero-slider/all").then((response) => {
+      if (response.status === 200) {
+        setSlides(response.data.data);
+      }
+    });
+  }, []);
+
+  const carousel_indicators = slides.map((_slide, i) => {
     if (i === 0) {
       return (
         <button
@@ -57,26 +38,26 @@ const HeroSlider = () => {
     }
   });
 
-  const carousel_items = slider_data.map((item, i) => {
+  const carousel_items = slides.map((slide, i) => {
     if (i === 0) {
       return (
         <div className="carousel-item active" key={i}>
-          <img src={item.image} alt="Los Angeles" className="d-block w-100" />
+          <img src={slide.image} alt="Los Angeles" className="d-block w-100" />
           <div className="carousel-caption">
-            <h3>{item.title}</h3>
+            <h3>{slide.title}</h3>
             <div className="row">
               <div className="col-6 mx-auto">
                 <Link
-                  to="/about-us"
-                  className="btn theme-btn theme-btn-dark slider-btn"
+                  to={ROUTE_NAMES.ABOUT_US}
+                  className="btn theme-btn theme-btn-dark"
                 >
                   Read More
                 </Link>
               </div>
               <div className="col-6 mx-auto">
                 <Link
-                  to="/contact-us"
-                  className="btn theme-btn-outline slider-btn"
+                  to={ROUTE_NAMES.CONTACT_US}
+                  className="btn theme-btn-outline"
                 >
                   Get In Touch
                 </Link>
@@ -88,22 +69,22 @@ const HeroSlider = () => {
     } else {
       return (
         <div className="carousel-item" key={i}>
-          <img src={item.image} alt="Los Angeles" className="d-block w-100" />
+          <img src={slide.image} alt="Los Angeles" className="d-block w-100" />
           <div className="carousel-caption">
-            <h3>{item.title}</h3>
-            <div className="row mt-4">
-              <div className="col-6">
+            <h3>{slide.title}</h3>
+            <div className="row mt-3">
+              <div className="col-6 mx-auto">
                 <Link
-                  to="/contactus"
-                  className="btn theme-btn theme-btn-dark slider-btn"
+                  to={ROUTE_NAMES.ABOUT_US}
+                  className="btn theme-btn theme-btn-dark"
                 >
                   Read More
                 </Link>
               </div>
-              <div className="col-6">
+              <div className="col-6 mx-auto">
                 <Link
-                  to="/contactus"
-                  className="btn theme-btn-outline slider-btn"
+                  to={ROUTE_NAMES.CONTACT_US}
+                  className="btn theme-btn-outline"
                 >
                   Get In Touch
                 </Link>

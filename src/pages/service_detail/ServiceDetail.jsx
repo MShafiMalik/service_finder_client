@@ -2,15 +2,22 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { SERVER_BASE_URL } from "../../common/constants";
+import PageTitle from "../components/page_title/PageTitle";
 import "./ServiceDetail.scss";
+import SellerReviews from "../components/seller_reviews/SellerReviews";
+import ReviewCardsContainer from "../components/review_cards_container/ReviewCardsContainer";
+import Packages from "./Packages";
+import SimilarServices from "../components/similar_services/SimilarServices";
 
 const ServiceDetail = () => {
   const [service, setService] = useState({});
+  const [categoryId, setCategoryId] = useState("");
   const [images, setImages] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [packages, setPackages] = useState({
-    basic: { name: "", description: "", price: "" },
-    standard: { name: "", description: "", price: "" },
-    premium: { name: "", description: "", price: "" },
+    basic: { name: "", description: "", features: [], price: "" },
+    standard: { name: "", description: "", features: [], price: "" },
+    premium: { name: "", description: "", features: [], price: "" },
   });
   const { service_id } = useParams();
   useEffect(() => {
@@ -22,9 +29,11 @@ const ServiceDetail = () => {
           setService(response.data.data);
           setImages(response.data.data.images);
           setPackages(response.data.data.packages);
+          setReviews(response.data.data.reviews);
+          setCategoryId(response.data.data.category._id);
         }
       });
-  }, []);
+  }, [service_id]);
 
   const carousel_indicators = images.map((_image, i) => {
     if (i === 0) {
@@ -66,80 +75,56 @@ const ServiceDetail = () => {
   });
 
   return (
-    <div className="container mt-4">
-      <div className="row">
-        <h3 className="font-w-800 mb-5 text-center">Service Detail</h3>
-        <div className="col-lg-8 mb-4">
-          <div id="slider" className="carousel slide" data-bs-ride="carousel">
-            <div className="carousel-indicators">{carousel_indicators}</div>
-            <div className="carousel-inner border">{carousel_items}</div>
+    <>
+      <PageTitle title="Service Detail" />
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col-lg-8 mb-4">
+            <div id="slider" className="carousel slide" data-bs-ride="carousel">
+              <div className="carousel-indicators">{carousel_indicators}</div>
+              <div className="carousel-inner border">{carousel_items}</div>
+            </div>
+            <div className="d-flex mt-3">
+              <img
+                src={service.seller?.image}
+                width="50"
+                height="50"
+                alt="seller"
+                style={{ borderRadius: "50%" }}
+              />
+              <p className="my-auto ms-2 font-w-700">
+                {`${service.seller?.firstname} ${service.seller?.lastname}`}
+              </p>
+              <div className="my-auto ms-2">
+                <SellerReviews reviews={service.seller?.reviews} />
+              </div>
+            </div>
+            <h3 className="fw-bold my-4">{service.title}</h3>
+            <h3>About this service</h3>
+            <div className="card px-3 py-2">
+              <p className="font-w-600 m-0">{service.description}</p>
+            </div>
+            <div className="left-packages my-5">
+              <Packages packages={packages} pre_id="left" />
+            </div>
+            <div className="my-5">
+              <ReviewCardsContainer reviews={reviews} />
+            </div>
           </div>
-          <h3 className="fw-bold my-4">{service.title}</h3>
-          <h3>About this service</h3>
-          <p className="font-w-600">{service.description}</p>
+          <div className="col-lg-4 mb-4">
+            <div className="right-packages">
+              <Packages packages={packages} pre_id="right" />
+            </div>
+          </div>
         </div>
-        <div className="col-lg-4 mb-4">
-          <ul className="nav nav-tabs nav-justified">
-            <li className="nav-item">
-              <a
-                href="#basic"
-                className="nav-link active font-w-700"
-                data-bs-toggle="tab"
-              >
-                Basic
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                href="#standard"
-                className="nav-link font-w-700"
-                data-bs-toggle="tab"
-              >
-                Standard
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                href="#premium"
-                className="nav-link font-w-700"
-                data-bs-toggle="tab"
-              >
-                Premium
-              </a>
-            </li>
-          </ul>
-          <div className="tab-content pt-3 px-3 border border-top-0">
-            <div className="tab-pane fade show active" id="basic">
-              <h5>{packages.basic.name}</h5>
-              <p>
-                <small>{packages.basic.description}</small>
-              </p>
-              <h5 className="text-center font-w-600">
-                ${packages.basic.price}
-              </h5>
-            </div>
-            <div className="tab-pane fade" id="standard">
-              <h5>{packages.standard.name}</h5>
-              <p>
-                <small>{packages.standard.description}</small>
-              </p>
-              <h5 className="text-center font-w-600">
-                ${packages.standard.price}
-              </h5>
-            </div>
-            <div className="tab-pane fade" id="premium">
-              <h5>{packages.premium.name}</h5>
-              <p>
-                <small>{packages.premium.description}</small>
-              </p>
-              <h5 className="text-center font-w-600">
-                ${packages.premium.price}
-              </h5>
-            </div>
-          </div>
+        <div className="row">
+          <SimilarServices
+            categoryId={categoryId}
+            currentServiceId={service._id}
+          />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
