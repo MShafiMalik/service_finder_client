@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/service_finder_client/static/css/main.c2473f07.css",
-    "main.js": "/service_finder_client/static/js/main.80508f11.js",
+    "main.js": "/service_finder_client/static/js/main.85095db8.js",
     "static/js/339.6ac8fb92.chunk.js": "/service_finder_client/static/js/339.6ac8fb92.chunk.js",
     "static/js/584.cabcd59d.chunk.js": "/service_finder_client/static/js/584.cabcd59d.chunk.js",
     "static/css/384.a7d4f7ba.chunk.css": "/service_finder_client/static/css/384.a7d4f7ba.chunk.css",
@@ -34,7 +34,7 @@
     "static/js/39.ac75c645.chunk.js": "/service_finder_client/static/js/39.ac75c645.chunk.js",
     "index.html": "/service_finder_client/index.html",
     "main.c2473f07.css.map": "/service_finder_client/static/css/main.c2473f07.css.map",
-    "main.80508f11.js.map": "/service_finder_client/static/js/main.80508f11.js.map",
+    "main.85095db8.js.map": "/service_finder_client/static/js/main.85095db8.js.map",
     "339.6ac8fb92.chunk.js.map": "/service_finder_client/static/js/339.6ac8fb92.chunk.js.map",
     "584.cabcd59d.chunk.js.map": "/service_finder_client/static/js/584.cabcd59d.chunk.js.map",
     "384.a7d4f7ba.chunk.css.map": "/service_finder_client/static/css/384.a7d4f7ba.chunk.css.map",
@@ -67,6 +67,6 @@
   },
   "entrypoints": [
     "static/css/main.c2473f07.css",
-    "static/js/main.80508f11.js"
+    "static/js/main.85095db8.js"
   ]
 }
