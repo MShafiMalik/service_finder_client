@@ -3,8 +3,8 @@ const SERVER_BASE_URL = "https://api-service-finder.herokuapp.com/";
 const CLIENT_BASE_URL = "http://localhost:3000/";
 const GOOGLE_MAP_API_KEY = "AIzaSyCLwLUlZEALsUUhJ0bOmuu_ciYvWnuhsCc";
 
-const PRE_ROUTE = "/";
-// const PRE_ROUTE = "/service_finder_client/";
+// const PRE_ROUTE = "/";
+const PRE_ROUTE = "/service_finder_client/";
 
 const NO_PARAM_ROUTES = {
   VERIFY_EMAIL: `${PRE_ROUTE}verify`,
