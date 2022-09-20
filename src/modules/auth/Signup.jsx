@@ -1,13 +1,12 @@
 import "./Registration.scss";
 import axios from "axios";
-import { SERVER_BASE_URL } from "../../common/constants";
+import { SERVER_BASE_URL, ROUTE_NAMES } from "../../common/constants";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ROUTE_NAMES } from "../../common/constants";
 
 const Signup = () => {
   let navigate = useNavigate();
@@ -63,7 +62,6 @@ const Signup = () => {
           />
           {errors.firstname ? (
             <label className="text-danger mt-1">
-              {" "}
               {errors.firstname.message}
             </label>
           ) : (

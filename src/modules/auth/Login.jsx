@@ -49,10 +49,10 @@ const Login = () => {
             navigate(ROUTE_NAMES.HOME);
           });
         } else {
-          const error = response?.statusText;
+          const error = response?.response.statusText;
           dispatch(loginFail({ error }));
           setLoading(false);
-          toast.error("Login Not Successfull!", {
+          toast.error(response.response.data.message, {
             autoClose: 2000,
           });
         }

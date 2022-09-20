@@ -126,7 +126,6 @@ const PersonalDetail = () => {
             />
             {errors.country ? (
               <label className="text-danger mt-1">
-                {" "}
                 {errors.country.message}
               </label>
             ) : (
